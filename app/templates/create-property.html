@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/css/create-property.css" />
+{% endblock %}
+
+{% block main %}
+<form method="post">
+    {{ form.csrf_form }}
+    <div class="form-group">
+        <h4> {{ form.title.label }} </h4>
+        <label>Enter The {{ form.title.label }}</label>
+        {{ form.title(size=20,class_="form-control") }}
+    </div>
+    <div class="row">
+        <div class="form-group col-md-4">
+            <h4> {{ form.num_bedrooms.label }} </h4>
+            <label>Enter The {{ form.num_bedrooms.label }}</label>
+            {{ form.num_bedrooms(size=20,class_="form-control") }}
+        </div>
+        <div class="form-group col-md-4">
+            <h4> {{ form.num_bathrooms.label }} </h4>
+            <label>Enter The {{ form.num_bathrooms.label }}</label>
+            {{ form.num_bathrooms(size=20,class_="form-control") }}
+        </div>
+        <div class="form-group col-md-4">
+            <h4> {{ form.price.label }} </h4>
+            <label>Enter The {{ form.price.label }}</label>
+            {{ form.price(size=20,class_="form-control") }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <h4> {{ form.image.label }} </h4>
+            <label>Upload The {{ form.image.label }}</label>
+            {{ form.image(size=20,class_="form-control") }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-6">
+            <h4> {{ form.location.label }} </h4>
+            <label>Enter The {{ form.location.label }}</label>
+            {{ form.location(size=100,class_="form-control") }}
+        </div>
+        <div class="form-group col-md-6">
+            <h4> {{ form.description.label }} </h4>
+            <label>Enter The {{ form.description.label }}</label>
+            {{ form.description(size=100,class_="form-control") }}
+        </div>
+    </div>
+    <input type="submit" class="btn btn-primary" />
+</form>
+{% endblock %}
