@@ -13,7 +13,7 @@ from app.forms.properties_form import PropertiesForm
 from werkzeug.utils import secure_filename
 from app.models import Property
 import locale
-from . import db
+from app import db
 
 def format_price(properties = [],property = None) :
     locale.setlocale(locale.LC_ALL, 'en_US')
