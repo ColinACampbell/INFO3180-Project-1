@@ -12,8 +12,9 @@ class Property(db.Model):
     price = db.Column(db.Integer)
     imagePath = db.Column(db.String(200))
     description = db.Column(db.String(400))
+    type = db.Column(db.String(40))
 
-    def __init__(self,title,bedrooms,bathrooms,location,price,imagePath,description) :
+    def __init__(self,title,bedrooms,bathrooms,location,price,imagePath,description,type) :
         self.title = title
         self.num_bedrooms = bedrooms
         self.num_bathrooms = bathrooms
@@ -21,4 +22,5 @@ class Property(db.Model):
         self.price = price
         self.imagePath = imagePath
         self.description = description
+        self.type = type
         

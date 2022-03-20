@@ -17,7 +17,7 @@ class PropertiesForm(FlaskForm) :
     price = DecimalField("Price of The Property",validators=[DataRequired()])
     image = FileField("Image of Property",validators=[])
     description = TextAreaField("The Property Description",validators=[DataRequired()])
-    type = SelectField('Type', choices=[('1','House'),('2','Apartment')])
+    type = SelectField('Apartment Type', choices=[('House','House'),('Apartment','Apartment')])
 
     class Meta :
         csrf = True

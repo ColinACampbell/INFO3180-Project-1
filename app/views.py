@@ -69,12 +69,13 @@ def create_property() :
             location = propertiesForm.location.data
             description = propertiesForm.description.data
             image = propertiesForm.image.data
+            type = propertiesForm.type.data
+            print(type)
 
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(image.filename))
             
-            # TODO: Write code to check for the type
             image.save(file_path)
-            property = Property(propertyName,num_bedrooms,num_bathrooms,location,price,image.filename,description)
+            property = Property(propertyName,num_bedrooms,num_bathrooms,location,price,image.filename,description,type)
             db.session.add(property)
             db.session.commit()
             flash("The Property was successfully created")
