@@ -8,11 +8,18 @@ This file creates your application.
 from crypt import methods
 from app import app
 import os
-from flask import flash, render_template, request, redirect, url_for
+from flask import flash, render_template, request, redirect, url_for, send_from_directory
 from app.forms.properties_form import PropertiesForm
 from werkzeug.utils import secure_filename
 from app.models import Property
+import locale
 from . import db
+
+def format_price(properties) :
+    for property in properties :
+        property.price = locale.format("%d", property.price, grouping=True)
+    return properties
+
 
 ###
 # Routing for your application.
@@ -32,7 +39,21 @@ def about():
 @app.route('/properties/',methods=['GET'])
 def properties():
     properties = db.session.query(Property).all()
+    locale.setlocale(locale.LC_ALL, 'en_US')
+    properties = format_price(properties);
     return render_template("properties.html",properties=properties)
+
+@app.route('/property/<propertyid>',methods=['GET'])
+def get_property(propertyid):
+    property = Property.query.filter_by(id=propertyid).first()
+    #locale.setlocale(locale.LC_ALL, 'en_US')
+    #properties = format_price(properties);
+    return render_template("property.html",properties=property)
+
+@app.route('/property/img/<filename>',methods=['GET'])
+def get_property_img(filename):
+    uploads = os.path.join(os.getcwd(), app.config['UPLOAD_FOLDER'])
+    return send_from_directory(uploads,filename)
 
 
 @app.route('/property/create/',methods=['GET','POST'])
@@ -53,7 +74,7 @@ def create_property() :
             
             # TODO: Write code to check for the type
             image.save(file_path)
-            property = Property(propertyName,num_bedrooms,num_bathrooms,location,price,file_path,description)
+            property = Property(propertyName,num_bedrooms,num_bathrooms,location,price,image.filename,description)
             db.session.add(property)
             db.session.commit()
             flash("The Property was successfully created")

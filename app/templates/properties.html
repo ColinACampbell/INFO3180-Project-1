@@ -9,14 +9,14 @@
         {% for property in properties %}
         <div class="property-card">
             <div class="property-img">
-                <img src="" alt="Property Image"/>
+                <img src="{{ url_for('get_property_img',filename=property.imagePath) }}" alt="Property Image"/>
             </div>
-            <div>
-                <h1> {{ property.title }}</h1>
-                <h3> {{ property.location }}</h3>
+            <div class="basic-property-info">
+                <h1 class="title"> {{ property.title }}</h1>
+                <h3 class="location"> 📌 {{ property.location }}</h3>
+                <h4 class="price">$ {{ property.price }} JMD</h4>
             </div>
-            <a href=""> View Propery </a>
-            
+            <a href="{{ url_for('get_property',propertyid=property.id) }}" class="view-property-btn"> View Propery </a>
         </div>
         {% endfor %}
     </div>
