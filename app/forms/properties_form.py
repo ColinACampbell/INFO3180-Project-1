@@ -5,6 +5,7 @@ from wtforms.validators import DataRequired
 from wtforms import FileField
 from wtforms import TextAreaField
 from wtforms import IntegerField
+from wtforms import SelectField
 
 
 
@@ -16,7 +17,7 @@ class PropertiesForm(FlaskForm) :
     price = DecimalField("Price of The Property",validators=[DataRequired()])
     image = FileField("Image of Property",validators=[])
     description = TextAreaField("The Property Description",validators=[DataRequired()])
-
+    type = SelectField('Type', choices=[('1','House'),('2','Apartment')])
 
     class Meta :
         csrf = True
