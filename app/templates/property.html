@@ -5,5 +5,29 @@
 {% endblock %}
 
 {% block main %}
-
+<div class="property-container">
+    <div class="property-card">
+        <div class="property-img">
+            <img src="{{ url_for('get_property_img',filename=property.imagePath) }}" alt="Property Image" />
+        </div>
+        <div class="property-info">
+            <h1> {{property.title}}</h1>
+            <div class="status">
+                <span> {{property.price }}</span>
+                <span> House </span>
+            </div>
+            <div class="description">
+                <p> {{property.description}}</p>
+            </div>
+            <div class="rooms">
+                <span> {{property.num_bedrooms }} Bedrooms </span>
+                <span> {{property.num_bathrooms }} Bathrooms </span>
+            </div>
+            <div class="location">
+                <p> {{property.location}}</p>
+            </div>
+            <button> Email Realtor</button>
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -48,7 +48,7 @@ def get_property(propertyid):
     property = Property.query.filter_by(id=propertyid).first()
     #locale.setlocale(locale.LC_ALL, 'en_US')
     #properties = format_price(properties);
-    return render_template("property.html",properties=property)
+    return render_template("property.html",property=property)
 
 @app.route('/property/img/<filename>',methods=['GET'])
 def get_property_img(filename):
