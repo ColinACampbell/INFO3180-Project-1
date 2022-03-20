@@ -1,5 +1,23 @@
 {% extends 'base.html' %}
 
-{% block main %}
+{% block css %}
+<link rel="stylesheet" href="/static/css/properties.css" />
+{% endblock %}
 
+{% block main %}
+    <div class="properties-grid">
+        {% for property in properties %}
+        <div class="property-card">
+            <div class="property-img">
+                <img src="" alt="Property Image"/>
+            </div>
+            <div>
+                <h1> {{ property.title }}</h1>
+                <h3> {{ property.location }}</h3>
+            </div>
+            <a href=""> View Propery </a>
+            
+        </div>
+        {% endfor %}
+    </div>
 {% endblock %}

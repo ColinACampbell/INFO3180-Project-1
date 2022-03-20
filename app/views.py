@@ -11,7 +11,8 @@ import os
 from flask import flash, render_template, request, redirect, url_for
 from app.forms.properties_form import PropertiesForm
 from werkzeug.utils import secure_filename
-
+from app.models import Property
+from . import db
 
 ###
 # Routing for your application.
@@ -28,12 +29,13 @@ def about():
     """Render the website's about page."""
     return render_template('about.html', name="Mary Jane")
 
-@app.route('/properties/')
-def get_properties() :
-    return render_template('properties.html')
+@app.route('/properties/',methods=['GET'])
+def properties():
+    properties = db.session.query(Property).all()
+    return render_template("properties.html",properties=properties)
 
 
-@app.route('/create-property/',methods=['GET','POST'])
+@app.route('/property/create/',methods=['GET','POST'])
 def create_property() :
     propertiesForm = PropertiesForm()
     if request.method == "POST" : 
@@ -48,11 +50,15 @@ def create_property() :
             image = propertiesForm.image.data
 
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(image.filename))
-            print(file_path)
+            
             # TODO: Write code to check for the type
+            image.save(file_path)
+            property = Property(propertyName,num_bedrooms,num_bathrooms,location,price,file_path,description)
+            db.session.add(property)
+            db.session.commit()
+            flash("The Property was successfully created")
+            return redirect(url_for("properties"))
         else :
-            print("Didn't work")
-            print(propertiesForm.form_errors)
             flash("Please enter the correct fields")
     return render_template('create-property.html',form=propertiesForm)
 
