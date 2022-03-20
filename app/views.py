@@ -15,10 +15,16 @@ from app.models import Property
 import locale
 from . import db
 
-def format_price(properties) :
-    for property in properties :
+def format_price(properties = [],property = None) :
+    locale.setlocale(locale.LC_ALL, 'en_US')
+
+    if (property == None) :
+        for property in properties :
+            property.price = locale.format("%d", property.price, grouping=True)
+        return properties
+    else :
         property.price = locale.format("%d", property.price, grouping=True)
-    return properties
+        return property
 
 
 ###
@@ -39,15 +45,13 @@ def about():
 @app.route('/properties/',methods=['GET'])
 def properties():
     properties = db.session.query(Property).all()
-    locale.setlocale(locale.LC_ALL, 'en_US')
-    properties = format_price(properties);
+    properties = format_price(properties=properties);
     return render_template("properties.html",properties=properties)
 
 @app.route('/property/<propertyid>',methods=['GET'])
 def get_property(propertyid):
     property = Property.query.filter_by(id=propertyid).first()
-    #locale.setlocale(locale.LC_ALL, 'en_US')
-    #properties = format_price(properties);
+    property = format_price(property=property);
     return render_template("property.html",property=property)
 
 @app.route('/property/img/<filename>',methods=['GET'])
