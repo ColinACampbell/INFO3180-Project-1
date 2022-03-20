@@ -14,7 +14,7 @@ class PropertiesForm(FlaskForm) :
     num_bathrooms = IntegerField("Number of Bathrooms",validators=[DataRequired()])
     location = TextAreaField("Location",validators=[DataRequired()])
     price = DecimalField("Price of The Property",validators=[DataRequired()])
-    image = FileField("Image of Property",validators=[DataRequired()])
+    image = FileField("Image of Property",validators=[])
     description = TextAreaField("The Property Description",validators=[DataRequired()])
 
 

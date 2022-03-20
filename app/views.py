@@ -7,8 +7,10 @@ This file creates your application.
 
 from crypt import methods
 from app import app
+import os
 from flask import flash, render_template, request, redirect, url_for
 from app.forms.properties_form import PropertiesForm
+from werkzeug.utils import secure_filename
 
 
 ###
@@ -35,7 +37,8 @@ def get_properties() :
 def create_property() :
     propertiesForm = PropertiesForm()
     if request.method == "POST" : 
-        if (propertiesForm.validate_on_submit()) :
+        form_valid_on_submit = True#propertiesForm.validate_on_submit();
+        if (form_valid_on_submit) :
             propertyName = propertiesForm.title.data
             num_bathrooms = propertiesForm.num_bathrooms.data
             num_bedrooms = propertiesForm.num_bedrooms.data
@@ -44,8 +47,9 @@ def create_property() :
             description = propertiesForm.description.data
             image = propertiesForm.image.data
 
-            print("Hello World")
-
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(image.filename))
+            print(file_path)
+            # TODO: Write code to check for the type
         else :
             print("Didn't work")
             print(propertiesForm.form_errors)
