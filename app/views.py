@@ -64,7 +64,9 @@ def get_property_img(filename):
 def create_property() :
     propertiesForm = PropertiesForm()
     if request.method == "POST" : 
-        form_valid_on_submit = True#propertiesForm.validate_on_submit();
+        form_valid_on_submit = propertiesForm.validate_on_submit();
+        print(form_valid_on_submit)
+        print(propertiesForm.errors)
         if (form_valid_on_submit) :
             propertyName = propertiesForm.title.data
             num_bathrooms = propertiesForm.num_bathrooms.data
