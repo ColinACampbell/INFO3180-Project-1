@@ -48,7 +48,7 @@ def properties():
     properties = format_price(properties=properties);
     return render_template("properties.html",properties=properties)
 
-@app.route('/property/<propertyid>',methods=['GET'])
+@app.route('/properties/<propertyid>',methods=['GET'])
 def get_property(propertyid):
     property = Property.query.filter_by(id=propertyid).first()
     property = format_price(property=property);
