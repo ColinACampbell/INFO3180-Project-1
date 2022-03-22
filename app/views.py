@@ -20,10 +20,10 @@ def format_price(properties = [],property = None) :
 
     if (property == None) :
         for property in properties :
-            property.price = locale.format("%d", property.price, grouping=True)
+            property.price = "${:,.2f}".format(property.price)
         return properties
     else :
-        property.price = locale.format("%d", property.price, grouping=True)
+        property.price = "${:,.2f}".format(property.price)
         return property
 
 
