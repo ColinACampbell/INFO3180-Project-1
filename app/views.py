@@ -12,12 +12,9 @@ from flask import flash, render_template, request, redirect, url_for, send_from_
 from app.forms.properties_form import PropertiesForm
 from werkzeug.utils import secure_filename
 from app.models import Property
-import locale
 from app import db
 
 def format_price(properties = [],property = None) :
-    locale.setlocale(locale.LC_ALL, 'en_US')
-
     if (property == None) :
         for property in properties :
             property.price = "${:,.2f}".format(property.price)
@@ -34,7 +31,7 @@ def format_price(properties = [],property = None) :
 @app.route('/')
 def home():
     """Render website's home page."""
-    return render_template('home.html')
+    return redirect(url_for('properties'))
 
 
 @app.route('/about/')
